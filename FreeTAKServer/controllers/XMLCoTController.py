@@ -26,7 +26,7 @@ class XMLCoTController:
         if data.type == 'RawConnectionInformation':
             #this handels the event of a connection CoT
             try:
-                return ("clientConnected", data)
+                return ("client_connected", data)
 
             except Exception as e:
                 logger.error(loggingConstants.XMLCOTCONTROLLERDETERMINECOTGENERALERRORA+str(e))
@@ -42,15 +42,6 @@ class XMLCoTController:
 
             except Exception as e:
                 logger.error(loggingConstants.XMLCOTCONTROLLERDETERMINECOTGENERALERRORB+str(e))
-
-    def convert_model_to_row(self, modelObject, rowObject):
-        for attribName, attribValue in modelObject.__dict__.items():
-            if hasattr(attribValue, '__dict__'):
-                subTableRow = getattr(rowObject, attribName)
-                subTableRowObject = self.convert_model_to_row(attribValue, subTableRow)
-                setattr(rowObject, attribName, subTableRowObject)
-            else:
-                setattr(rowObject, attribName, attribValue)
 
     def determineCoTType(self, RawCoT):
         # this function is to establish which specific controller applys to the CoT if any
@@ -169,7 +160,9 @@ class XMLCoTController:
         pass
 
     def serialize_model_to_CoT(self, modelObject, tagName = 'event', level = 0):
-        from lxml.etree import Element
+        from FreeTAKServer.controllers.serializers.xml_serializer import XmlSerializer
+        return etree.tostring(XmlSerializer().from_fts_object_to_format(modelObject))
+        """from lxml.etree import Element
         xml = Element(tagName)
         for attribName, value in modelObject.__dict__.items():
             if hasattr(value, '__dict__'):
@@ -218,7 +211,7 @@ class XMLCoTController:
         if level == 0:
             return etree.tostring(xml)
         else:
-            return xml
+            return xml"""
 
     """def serialize_CoT_to_model(self, model, xml):
         attributes = xml.attrib

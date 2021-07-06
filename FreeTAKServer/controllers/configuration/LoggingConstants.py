@@ -19,7 +19,7 @@ class LoggingConstants:
         self.BACKUPCOUNT = 5
         # orchestrator logs
 
-        # clientConnected
+        # client_connected
         self.CLIENTCONNECTED = 'client has connected'
         self.CREATE = 'create'
         self.ADD = 'add'

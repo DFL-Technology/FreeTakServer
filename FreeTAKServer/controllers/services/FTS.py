@@ -45,7 +45,7 @@ class FTS:
         self.FTSServiceStartupConfigObject = FTSObj()
         self.dbController = DatabaseController()
         logger.propagate = True
-        logger.info('something')
+        #logger.info('something')
 
     def start_restAPI_service(self, StartupObjects):
         try:

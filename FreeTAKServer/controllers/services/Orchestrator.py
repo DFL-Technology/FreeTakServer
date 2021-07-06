@@ -28,6 +28,8 @@ from FreeTAKServer.controllers.configuration.OrchestratorConstants import Orches
 from FreeTAKServer.controllers.serializers.SqlAlchemyObjectController import SqlAlchemyObjectController
 from FreeTAKServer.model.FTSModel.Event import Event
 from FreeTAKServer.controllers.serializers.xml_serializer import XmlSerializer
+from FreeTAKServer.controllers.DatabaseControllers.EventTableController import EventTableController
+from FreeTAKServer.controllers.XMLCoTController import XMLCoTController
 
 ascii = AsciiController().ascii
 from logging.handlers import RotatingFileHandler
@@ -36,6 +38,7 @@ import multiprocessing
 import importlib
 import sqlite3
 import socket
+import copy
 
 loggingConstants = LoggingConstants()
 
@@ -43,7 +46,7 @@ from FreeTAKServer.controllers.ClientReceptionHandler import ClientReceptionHand
 
 
 class Orchestrator:
-    #TODO: fix repeat attempts to add user
+    # TODO: fix repeat attempts to add user
     # default constructor  def __init__(self):
     def __init__(self):
         log_format = logging.Formatter(loggingConstants.LOGFORMAT)
@@ -79,6 +82,7 @@ class Orchestrator:
     def clear_user_table(self):
         self.dbController.remove_user()
         print('user table cleared')
+
     def testing(self):
         """
         function which creates variables for testing
@@ -88,6 +92,7 @@ class Orchestrator:
         self.dbController = DatabaseController()
         self.CoTSharePipe, other = Pipe()
         return None
+
     def newHandler(self, filename, log_level, log_format):
         handler = RotatingFileHandler(
             filename,
@@ -124,21 +129,23 @@ class Orchestrator:
             instobj.modelObject.detail._chat.setid(clientInformation.modelObject.uid)
             instobj.modelObject.detail._chat.setgroupOwner("True")
             instobj.modelObject.detail.remarks.setto(clientInformation.modelObject.uid)
-            instobj.modelObject.setuid('GeoChat.'+'SERVER-UID.'+clientInformation.modelObject.detail.contact.callsign+'.'+str(uuid.uuid1()))
+            instobj.modelObject.setuid(
+                'GeoChat.' + 'SERVER-UID.' + clientInformation.modelObject.detail.contact.callsign + '.' + str(
+                    uuid.uuid1()))
             instobj.modelObject.detail._chat.chatgrp.setid(clientInformation.modelObject.uid)
             classobj.reloadXmlString()
-            SendDataController().sendDataInQueue(None, instobj, self.clientInformationQueue)
+            SendDataController().send_data_in_queue(None, instobj, self.clientInformationQueue)
             return 1
         else:
             return 1
-    def clientConnected(self, rawConnectionInformation):
+
+    def client_connected(self, rawConnectionInformation):
         try:
-            import copy
             # temporarily broken
             # self.check_for_dead_sockets()
-            from FreeTAKServer.controllers.DatabaseControllers.EventTableController import EventTableController
             clientPipe = None
             self.logger.info(loggingConstants.CLIENTCONNECTED)
+            # TODO: change serialization method
             clientInformation = self.ClientInformationController.intstantiateClientInformationModelFromConnection(
                 rawConnectionInformation, clientPipe)
             sock = clientInformation.socket
@@ -150,8 +157,6 @@ class Orchestrator:
             else:
                 raise Exception('error in the creation of client information')
             self.openSockets += 1
-            #breaks ssl
-            #self.ClientInformationQueueController.addClientToQueue(clientInformation)
             self.clientInformationQueue.append(clientInformation)
             try:
                 if hasattr(clientInformation.socket, 'getpeercert'):
@@ -159,16 +164,15 @@ class Orchestrator:
                 else:
                     cn = None
                 CoTRow = EventTableController().convert_model_to_row(clientInformation.modelObject)
-                self.dbController.create_user(uid = clientInformation.modelObject.uid, callsign = clientInformation.modelObject.detail.contact.callsign, IP=clientInformation.IP, CoT = CoTRow, CN = cn)
+                self.dbController.create_user(uid=clientInformation.modelObject.uid,
+                                              callsign=clientInformation.modelObject.detail.contact.callsign,
+                                              IP=clientInformation.IP, CoT=CoTRow, CN=cn)
             except Exception as e:
                 print(e)
                 self.logger.error(
                     'there has been an error in a clients connection while adding information to the database ' +
                     str(e))
-            #self.logger.info(loggingConstants.CLIENTCONNECTEDFINISHED + str(clientInformation.modelObject.detail.contact.callsign))
-            print("adding client")
             self.clientDataPipe.put(['add', clint_info_clean, self.openSockets])
-            print("client added")
             self.sendUserConnectionGeoChat(clientInformation)
             return clientInformation
         except Exception as e:
@@ -178,11 +182,11 @@ class Orchestrator:
     def check_for_dead_sockets(self):
         # fix function
         try:
-            for sock in self.clientInformationQueue:
-                if sock.is_alive():
+            for client in self.clientInformationQueue:
+                if client.is_alive():
                     pass
                 else:
-                    self.clientDisconnected(sock)
+                    self.clientDisconnected(client)
             return 1
         except Exception as e:
             self.logger.error("there has been an exception in checking for dead sockets " + str(e))
@@ -209,7 +213,7 @@ class Orchestrator:
             # the following calls whatever controller was specified by the above function
             module = importlib.import_module('FreeTAKServer.controllers.SpecificCoTControllers.' + RawCoT.CoTType)
             CoTSerializer = getattr(module, RawCoT.CoTType)
-            #TODO: improve way in which the dbController is passed to CoTSerializer
+            # TODO: improve way in which the dbController is passed to CoTSerializer
             RawCoT.dbController = self.dbController
             processedCoT = CoTSerializer(RawCoT).getObject()
             sender = processedCoT.clientInformation
@@ -217,8 +221,8 @@ class Orchestrator:
             '''try:
                 # TODO: method of determining if CoT should be added to the internal array should
                 #  be improved
-                if processedCoT.type == "Emergency":
-                    self.emergencyReceived(processedCoT)
+                if processed_cot.type == "Emergency":
+                    self.emergencyReceived(processed_cot)
                 else:
                     pass
             except Exception as e:
@@ -232,7 +236,7 @@ class Orchestrator:
         try:
             if len(self.internalCoTArray) > 0:
                 for processedCoT in self.internalCoTArray:
-                    SendDataController().sendDataInQueue(processedCoT.clientInformation, processedCoT, [client])
+                    SendDataController().send_data_in_queue(processedCoT.clientInformation, processedCoT, [client])
             else:
                 pass
             self.send_active_emergencys(client)
@@ -257,12 +261,14 @@ class Orchestrator:
                 emergencyobj = SendEmergency()
                 modelObject = Event.emergecyOn()
 
-                filledModelObject = SqlAlchemyObjectController().convert_sqlalchemy_to_modelobject(emergency.event, modelObject)
+                filledModelObject = SqlAlchemyObjectController().convert_sqlalchemy_to_modelobject(emergency.event,
+                                                                                                   modelObject)
                 # emergencyobj.setXmlString(XMLCoTController().serialize_model_to_CoT(filledModelObject))
-                emergencyobj.setXmlString(etree.tostring((XmlSerializer().from_fts_object_to_format(filledModelObject))))
+                emergencyobj.setXmlString(
+                    etree.tostring((XmlSerializer().from_fts_object_to_format(filledModelObject))))
                 print(emergencyobj.xmlString)
                 emergencyobj.setModelObject(filledModelObject)
-                SendDataController().sendDataInQueue(None, emergencyobj, [client])
+                SendDataController().send_data_in_queue(None, emergencyobj, [client])
 
         except Exception as e:
             import traceback
@@ -302,15 +308,15 @@ class Orchestrator:
                 else:
                     pass
         except Exception as e:
-            self.logger.critical("client removal failed "+str(e))
+            self.logger.critical("client removal failed " + str(e))
         print('stage 1')
-        #time.sleep(1)
+        # time.sleep(1)
         try:
             self.ActiveThreadsController.removeClientThread(clientInformation)
             self.dbController.remove_user(query=f'uid = "{clientInformation.modelObject.uid}"')
         except Exception as e:
             self.logger.critical(
-                'there has been an error in a clients disconnection while adding information to the database '+str(e))
+                'there has been an error in a clients disconnection while adding information to the database ' + str(e))
             pass
         print('stage 1 a')
         if hasattr(clientInformation, 'clientInformation'):
@@ -323,11 +329,11 @@ class Orchestrator:
             clientInformation.socket = None
             clientInformationcopy = deepcopy(clientInformation)
             print('stage 1 b')
-            #time.sleep(1)
+            # time.sleep(1)
             if clientInformationcopy.socket == None:
                 self.clientDataPipe.put(['remove', clientInformationcopy, self.openSockets])
-            #working
-            #time.sleep(1)
+            # working
+            # time.sleep(1)
             print('stage 1 c')
             clientInformation.socket = socketa
             try:
@@ -340,19 +346,22 @@ class Orchestrator:
             except Exception as e:
                 self.logger.error('error closing socket in client disconnection')
                 pass
-            #time.sleep(1)
+            # time.sleep(1)
             print('stage 2')
 
             self.logger.info(loggingConstants.CLIENTDISCONNECTSTART)
             # TODO: remove string
             tempXml = RawCoT()
-            tempXml.xmlString = '<event><detail><link uid="{0}"/></detail></event>'.format(clientInformation.modelObject.uid).encode()
+            tempXml.xmlString = '<event><detail><link uid="{0}"/></detail></event>'.format(
+                clientInformation.modelObject.uid).encode()
             disconnect = SendDisconnectController(tempXml)
             print('stage 3')
-            #working
-            #time.sleep(1)
-            SendDataController().sendDataInQueue(disconnect.getObject().clientInformation, disconnect.getObject(), self.clientInformationQueue, self.CoTSharePipe)
-            self.logger.info(loggingConstants.CLIENTDISCONNECTEND + str(clientInformation.modelObject.detail.contact.callsign))
+            # working
+            # time.sleep(1)
+            SendDataController().send_data_in_queue(disconnect.getObject().clientInformation, disconnect.getObject(),
+                                                    self.clientInformationQueue, self.CoTSharePipe)
+            self.logger.info(
+                loggingConstants.CLIENTDISCONNECTEND + str(clientInformation.modelObject.detail.contact.callsign))
             print('client disconnected')
             return 1
         except Exception as e:
@@ -360,7 +369,7 @@ class Orchestrator:
             self.logger.error(loggingConstants.CLIENTCONNECTEDERROR + " " + str(e))
             pass
 
-    def monitorRawCoT(self,data):
+    def monitorRawCoT(self, data):
         # this needs to be the most robust function as it is the keystone of the program
         # this will attempt to define the type of CoT along with the designated controller
         try:
@@ -384,7 +393,8 @@ class Orchestrator:
     def loadAscii(self):
         ascii()
 
-    def mainRunFunction(self, clientData, receiveConnection, sock, pool, event, clientDataPipe, ReceiveConnectionKillSwitch, CoTSharePipe, ssl = False):
+    def mainRunFunction(self, clientData, receiveConnection, sock, pool, event, clientDataPipe,
+                        ReceiveConnectionKillSwitch, CoTSharePipe, ssl=False):
         print('server started')
         self.ssl = ssl
         import datetime
@@ -415,7 +425,8 @@ class Orchestrator:
 
                     except multiprocessing.TimeoutError:
 
-                        if (datetime.datetime.now() - receiveconntimeoutcount) > datetime.timedelta(seconds=60) and ssl == True:
+                        if (datetime.datetime.now() - receiveconntimeoutcount) > datetime.timedelta(
+                                seconds=60) and ssl == True:
                             from multiprocessing.pool import ThreadPool
                             try:
                                 pass
@@ -436,19 +447,21 @@ class Orchestrator:
                         else:
                             pass
                     except Exception as e:
-                        self.logger.error('exception in receive connection within main run function '+str(e))
+                        self.logger.error('exception in receive connection within main run function ' + str(e))
 
                     try:
                         clientDataOutput = clientData.get(timeout=0.01)
                         if self.checkOutput(clientDataOutput) and isinstance(clientDataOutput, list):
                             CoTOutput = self.handel_regular_data(clientDataOutput)
                         else:
-                            raise Exception('client reception handler has returned data which is not of type list data is ' + str(clientDataOutput))
+                            raise Exception(
+                                'client reception handler has returned data which is not of type list data is ' + str(
+                                    clientDataOutput))
                         clientData = pool.apply_async(ClientReceptionHandler().startup, (self.clientInformationQueue,))
                     except multiprocessing.TimeoutError:
                         pass
                     except Exception as e:
-                        #self.logger.info('exception in receive client data within main run function ' + str(e))
+                        # self.logger.info('exception in receive client data within main run function ' + str(e))
                         pass
                     try:
                         if not CoTSharePipe.empty():
@@ -461,7 +474,8 @@ class Orchestrator:
                         else:
                             pass
                     except Exception as e:
-                        self.logger.error('there has been an excepion in the handling of data supplied by the rest API '+str(e))
+                        self.logger.error(
+                            'there has been an excepion in the handling of data supplied by the rest API ' + str(e))
                         pass
                 else:
                     self.stop()
@@ -473,11 +487,11 @@ class Orchestrator:
 
     def handel_shared_data(self, modelData):
         try:
-            #print('\n \n handling shared data \n \n')
+            # print('\n \n handling shared data \n \n')
             # print('data received within orchestrator '+str(modelData.xmlString))
             if hasattr(modelData, 'clientInformation'):
-                output = SendDataController().sendDataInQueue(modelData.clientInformation, modelData,
-                                                              self.clientInformationQueue)
+                output = SendDataController().send_data_in_queue(modelData.clientInformation, modelData,
+                                                                 self.clientInformationQueue)
             #
 
             elif modelData.type == "connmessage":
@@ -486,8 +500,8 @@ class Orchestrator:
             # this runs in the event of a new connection
             else:
                 print(modelData)
-                output = SendDataController().sendDataInQueue(None, modelData,
-                                                              self.clientInformationQueue)
+                output = SendDataController().send_data_in_queue(None, modelData,
+                                                                 self.clientInformationQueue)
         except Exception as e:
             self.logger.error("data base connection error " + str(e))
             print(e)
@@ -504,22 +518,9 @@ class Orchestrator:
                         continue
                     elif self.checkOutput(CoTOutput):
                         print('sending data in queue')
-                        output = SendDataController().sendDataInQueue(CoTOutput.clientInformation, CoTOutput,
-                                                                      self.clientInformationQueue, self.CoTSharePipe)
+                        SendDataController().send_data_in_queue(CoTOutput.clientInformation, CoTOutput,
+                                                                self.clientInformationQueue, self.CoTSharePipe)
                         print('data sent in queue')
-                        if self.checkOutput(output) and isinstance(output, tuple) == False:
-                            pass
-                        elif isinstance(output, tuple):
-                            self.logger.error('issue sending data to client now disconnecting')
-                            print('issue sending data to client now disconnecting')
-                            import traceback
-                            print(str(traceback.format_exc()))
-                            self.clientDisconnected(output[1])
-
-                        else:
-                            self.logger.error('send data failed in main run function with data ' + str(
-                                CoTOutput.xmlString) + ' from client ' + CoTOutput.clientInformation.modelObject.detail.contact.callsign)
-
                     else:
                         raise Exception('error in general data processing')
                 except Exception as e:
@@ -545,10 +546,11 @@ class Orchestrator:
 
             CoTOutput = self.monitorRawCoT(receiveConnectionOutput)
             if CoTOutput != -1 and CoTOutput != None:
-                output = SendDataController().sendDataInQueue(CoTOutput, CoTOutput,
-                                                              self.clientInformationQueue, self.CoTSharePipe)
+                output = SendDataController().send_data_in_queue(CoTOutput, CoTOutput,
+                                                                 self.clientInformationQueue, self.CoTSharePipe)
                 if self.checkOutput(output):
-                    self.logger.debug('connection data from client ' + str(CoTOutput.modelObject.detail.contact.callsign) + ' successfully processed')
+                    self.logger.debug('connection data from client ' + str(
+                        CoTOutput.modelObject.detail.contact.callsign) + ' successfully processed')
                 else:
                     raise Exception('error in sending data')
             else:
@@ -568,14 +570,15 @@ class Orchestrator:
             self.MainSocketController.changeIP(IP)
             self.MainSocketController.changePort(CoTPort)
             sock = self.MainSocketController.createSocket()
-            #changed
+            # changed
             from multiprocessing.pool import ThreadPool
             pool = ThreadPool(processes=2)
             self.pool = pool
             clientData = pool.apply_async(ClientReceptionHandler().startup, (self.clientInformationQueue,))
             receiveConnection = pool.apply_async(ReceiveConnections().listen, (sock,))
             # instantiate domain model and save process as object
-            self.mainRunFunction(clientData, receiveConnection, sock, pool, Event, clientDataPipe, ReceiveConnectionKillSwitch, RestAPIPipe)
+            self.mainRunFunction(clientData, receiveConnection, sock, pool, Event, clientDataPipe,
+                                 ReceiveConnectionKillSwitch, RestAPIPipe)
 
         except Exception as e:
             self.logger.critical('there has been a critical error in the startup of FTS' + str(e))
@@ -586,16 +589,3 @@ class Orchestrator:
         self.pool.terminate()
         self.pool.close()
         self.pool.join()
-
-"""if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser(description=OrchestratorConstants().FULLDESC)
-    parser.add_argument(OrchestratorConstants().COTPORTARG, type=int, help=OrchestratorConstants().COTPORTDESC,
-                        default=OrchestratorConstants().COTPORT)
-    parser.add_argument(OrchestratorConstants().IPARG, type=str, help=OrchestratorConstants().IPDESC,
-                        default=OrchestratorConstants().IP)
-    parser.add_argument(OrchestratorConstants().APIPORTARG, type=int, help=OrchestratorConstants().APIPORTDESC,
-                        default=DataPackageServerConstants().APIPORT)
-    args = parser.parse_args()
-    CreateStartupFilesController()
-    Orchestrator().start(args.IP, args.CoTPort, args.APIPort)"""

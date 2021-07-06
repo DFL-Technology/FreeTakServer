@@ -1,150 +1,132 @@
 from FreeTAKServer.controllers.configuration.LoggingConstants import LoggingConstants
 from FreeTAKServer.controllers.CreateLoggerController import CreateLoggerController
+from typing import Union
 loggingConstants = LoggingConstants()
 logger = CreateLoggerController("SendDataController").getLogger()
 import copy
 #TODO: the part handling new connection from seperate process needs to be cleaned up
 
+def get_callsigns(*, cot_object) -> list:
+    callsigns = []
+    if hasattr(cot_object.modelObject.detail, "marti") and hasattr(cot_object.modelObject.detail.marti, "dest"):
+        for dest in cot_object.modelObject.detail.marti.dest:
+            callsign = dest.getcallsign()
+            if type(callsign) == str:
+                callsigns.append(callsign)
+            else:
+                continue
+    return callsigns
+
+def get_uids(*, cot_object) -> list:
+    """ get destination uids from an object
+
+    gets destination uids specified in the chatgrp object within the model
+    object and returns it as a list
+    """
+    uids = []
+    if hasattr(cot_object.modelObject.detail, "_chat") and hasattr(cot_object.modelObject.detail._chat, "chatgrp"):
+        uids.append(cot_object.modelObject.detail._chat.chatgrp.getuid1())
+    return uids
+
+
+def send_to_listener(*, listener, cot_string: bytes):
+    if hasattr(listener, "socket"):
+        listener.socket.send(cot_string)
+    else:
+        raise AttributeError("listener is missing attribute socket")
+
+
+def verify_string_type(*, cot_string: Union[str, bytes]) -> bytes:
+    if type(cot_string) == str:
+        return cot_string.encode()
+    elif type(cot_string) == bytes:
+        return cot_string
+    else:
+        raise TypeError("cot_string must of type str or type bytes")
+
+
+def send_to_share_pipe(*, cot_object, share_pipe) -> None:
+    share_pipe.put(cot_object)
+
+
+def send_to_all(*, listeners, cot_string: bytes) -> None:
+    """send given bytes to all listeners in list
+
+        iterates over listeners and sends cot_string to each one
+        """
+    for listener in listeners:
+        send_to_listener(cot_string=cot_string, listener=listener)
+
+
+def send_to_uids(*, listeners, cot_string: bytes, uids: list) -> None:
+    """send given bytes to all listeners with uid in list
+
+            iterates over listeners for listeners with a uid within the
+            uid list. If found it will send the cot_string to the given
+            listener
+            """
+    for listener in listeners:
+        if listener.modelObject.uid in uids:
+            send_to_listener(cot_string=cot_string, listener=listener)
+
+
+def send_to_callsigns(*, listeners, cot_string: bytes, callsigns: list)->None:
+    """send given bytes to all listeners with callsign in list
+
+        iterates over listeners for listeners with a callsign within the
+        callsign list. If found it will send the cot_string to the given
+        listener
+        """
+    for listener in listeners:
+        if listener.modelObject.detail.contact.callsign in callsigns:
+            send_to_listener(cot_string=cot_string, listener=listener)
+
+
 class SendDataController:
 
     def __init__(self):
         pass
-    def sendDataInQueue(self, sender, processedCoT, clientInformationQueue, shareDataPipe = None):
-        try:
-            pass
-            # print('sending data to fts client' + str(processedCoT.xmlString))
-        except Exception as e:
-            print(e)
-        try:
-            if processedCoT.type == 'GeoChat':
-                self.returnData = self.geochat_sending(clientInformationQueue, processedCoT, sender, shareDataPipe)
-                return self.returnData
-            elif sender == processedCoT:
-                for client in clientInformationQueue:
-                    try:
-                        sock = client.socket
-                        sock.send(processedCoT.idData.encode())
-                        sender.socket.send(client.idData.encode())
-                        # this is a special case which is identified
-                        # by the server due to the list contents
-                        # being within a list
-                    except Exception as e:
-                        print(e)
-                        logger.error('error in sending connection data ' + str(processedCoT.idData))
-                        pass
-                copiedProcessedCoTObject = copy.deepcopy(processedCoT)
-                copiedProcessedCoTObject.idData = copiedProcessedCoTObject.idData.encode()
-                shareDataPipe.put([copiedProcessedCoTObject])
-                return 1
-            elif processedCoT.type == 'other':
-                self.returnData = self.send_to_specific_client(clientInformationQueue, processedCoT, sender, shareDataPipe)
-                return self.returnData
-            else:
-                self.returnData = self.send_to_all(clientInformationQueue, processedCoT, sender, shareDataPipe)
-                return self.returnData
-        except Exception as e:
-            logger.error(loggingConstants.SENDDATACONTROLLERSENDDATAINQUEUEERROR+str(e))
-            raise Exception(e)
 
-    def send_to_specific_client(self, clientInformationQueue, processedCoT, sender, shareDataPipe):
-        try:
-            if processedCoT.martiPresent == False:
-                # print('marti not present')
-                return self.send_to_all(clientInformationQueue, processedCoT, sender, shareDataPipe)
+    def send_data_in_queue(self, sender, processed_cot, client_information_queue, share_data_pipe = None) -> int:
+        """Send data to all clients within a given list
 
-            else:
-                # print('marti present')
-                for dest in processedCoT.modelObject.detail.marti.dest:
-                    try:
-                        for client in clientInformationQueue:
-                            if client.modelObject.detail.contact.callsign == dest.callsign:
-                                print('client socket is ' + str(client.socket))
-                                sock = client.socket
-                                try:
-                                    sock.send(processedCoT.xmlString)
-                                except Exception as e:
-                                    logger.error('error sending data with marti to client data ' + str(
-                                        processedCoT.xmlString) + 'error is ' + str(e))
-                                    return (-1, client)
-                            else:
-                                continue
-                    except Exception as e:
-                        logger.error('error sending data with marti to client within if data is ' + str(
-                            processedCoT.xmlString) + 'error is ' + str(e))
-                        return -1
-                if shareDataPipe != None:
-                    processedCoT.clientInformation = None
-                    shareDataPipe.put(processedCoT)
-                else:
-                    pass
-                return 1
-        except Exception as e:
-            print(e)
-            logger.error('error in send data to specific client ' + str(e))
-            return -1
-    def send_to_all(self, clientInformationQueue, processedCoT, sender, shareDataPipe):
+        This method is used to parse and send data accordingly, to clients listed in clientInformationQueue parameter
+        in addition to sending this data to the share_data_pipe
+
+        Args:
+            sender: unused
+            processed_cot: a cot_object containing an xmlString attribute and modelObject attribute
+            client_information_queue: a list of clientInformation objects each containing socket attributes
+            share_data_pipe: Optional; if share_data_pipe is passed it should have the .put method and
+                will be sent the cot_object
+
+        Returns:
+            None
+
+        Raises:
+            AttributeError: processedCoT argument must have xmlString attribute
+            AttributeError: processedCoT argument must have modelObject attribute
+        """
         try:
-            for client in clientInformationQueue:
-                sock = client.socket
-                try:
-                    if hasattr(processedCoT, 'xmlString'):
-                        # print('sending to all ' + str(processedCoT.xmlString))
-                        try:
-                            sock.send(processedCoT.xmlString)
-                        except TypeError:
-                            sock.send(processedCoT.xmlString.encode())
-                    else:
-                        try:
-                            sock.send(processedCoT.idData)
-                        except TypeError:
-                            sock.send(processedCoT.idData.encode())
-                except Exception as e:
-                    if str(e) != "timed out":
-                        logger.error('error in sending of data ' + str(e))
-                        continue
-                    return (-1, client)
-            if shareDataPipe != None:
-                processedCoT.clientInformation = None
-                if processedCoT.clientInformation == None:
-                    shareDataPipe.put(processedCoT)
+            uids = get_uids(cot_object=processed_cot)
+            callsigns = get_callsigns(cot_object=processed_cot)
+            if not hasattr(processed_cot, "modelObject"):
+                raise AttributeError("processed_cot argument must have modelObject attribute")
+            if hasattr(processed_cot, "xmlString"):
+                cot_string = verify_string_type(cot_string=processed_cot.xmlString)
+            elif hasattr(processed_cot, "idData"):
+                cot_string = verify_string_type(cot_string=processed_cot.idData)
             else:
-                pass
+                raise AttributeError("processed_cot argument must have xmlString attribute")
+            if uids:
+                send_to_uids(cot_string=cot_string, listeners=client_information_queue, uids=uids)
+            if callsigns:
+                send_to_callsigns(cot_string=cot_string, listeners=client_information_queue, callsigns=callsigns)
+            if not uids and not callsigns:
+                send_to_all(cot_string=cot_string, listeners=client_information_queue)
+            if share_data_pipe:
+                send_to_share_pipe(cot_object=processed_cot, share_pipe=share_data_pipe)
             return 1
         except Exception as e:
-            import traceback
-            print('exception SendDataController ln:110')
-            print(str(traceback.format_exc()))
-            print(clientInformationQueue)
-            logger.error('error in send to all ' + str(e)+str(traceback.format_exc()))
-            raise Exception(e)
-    def geochat_sending(self, clientInformationQueue, processedCoT, sender, shareDataPipe):
-        try:
-            if processedCoT.modelObject.detail._chat.chatgrp.uid1 == 'All Chat Rooms':
-                return self.send_to_all(clientInformationQueue, processedCoT, sender, shareDataPipe)
-    
-            else:
-                for client in clientInformationQueue:
-                    try:
-                        if client.modelObject.uid == processedCoT.modelObject.detail._chat.chatgrp.uid1:
-                            sock = client.socket
-                            try:
-                                sock.send(processedCoT.xmlString)
-                            except Exception as e:
-                                logger.error('error sending data with marti to client data ' + str(
-                                    processedCoT.xmlString) + 'error is ' + str(e))
-                                return (-1, client)
-                        else:
-                            continue
-                    except Exception as e:
-                        logger.error('error sending data with marti to client within if data is ' + str(
-                            processedCoT.xmlString) + 'error is ' + str(e))
-                        return -1
-                if shareDataPipe != None:
-                    processedCoT.clientInformation = None
-                    shareDataPipe.put(processedCoT)
-                else:
-                    pass
-                return 1
-        except Exception as e:
             print(e)
-            logger.error('there has been an exception in sending geochat ' + str(e))
+

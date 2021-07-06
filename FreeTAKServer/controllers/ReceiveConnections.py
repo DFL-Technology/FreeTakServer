@@ -27,50 +27,51 @@ class ReceiveConnections:
 
 
     def listen(self, sock, sslstatus = False):
-        #logger = CreateLoggerController("ReceiveConnections").getLogger()
-        #listen for client connections
         sock.listen(0)
         try:
-            #establish the socket variables
             if sslstatus == True:
                 sock.settimeout(60)
-                #sock.setblocking(0)
-            #logger.debug('receive connection started')
             try:
-                client, address = sock.accept()
-                if sslstatus == True:
-                    client = SSLSocketController().wrap_client_socket(client)
+                address, client = self.accept_connection(sock, sslstatus)
             except ssl.SSLError as e:
                 print(e)
                 client.close()
                 logger.warning('ssl error thrown in connection attempt '+str(e))
                 return -1
+            except socket.timeout:
+                return -1
             if sslstatus == True:
                 logger.info('client connected over ssl ' + str(address) + ' ' + str(time.time()))
             #wait to receive client
-            client.settimeout(int(ReceiveConnectionsConstants().RECEIVECONNECTIONDATATIMEOUT))
-            data = client.recv(1024)
-            if data == ReceiveConnectionsConstants().TESTDATA:
-                client.send(b'success')
-                return -1
-            else:
-                pass
+            data = self.receive_initial_data(client)
             client.settimeout(0)
             logger.info(loggingConstants.RECEIVECONNECTIONSLISTENINFO)
-            #establish the socket array containing important information about the client
-            RawConnectionInformation = sat()
-            RawConnectionInformation.ip = address[0]
-            RawConnectionInformation.socket = client
-            RawConnectionInformation.xmlString = data.decode('utf-8')
-            try:
-                if socket != None and data != b'':
-                    return RawConnectionInformation
-                else:
-                    return -1
-            except Exception as e:
-                logger.warning('exception in returning data '+str(e))
-                return -1
+            raw_connection_information = self.build_connection_information(address, client, data)
+            return raw_connection_information
 
         except Exception as e:
+            client.close()
             logger.warning(loggingConstants.RECEIVECONNECTIONSLISTENERROR+str(e))
             return -1
+
+    def build_connection_information(self, address, client, data):
+        raw_connection_information = sat()
+        raw_connection_information.ip = address[0]
+        raw_connection_information.socket = client
+        raw_connection_information.xmlString = data.decode('utf-8')
+        return raw_connection_information
+
+    def receive_initial_data(self, client):
+        client.settimeout(int(ReceiveConnectionsConstants().RECEIVECONNECTIONDATATIMEOUT))
+        data = client.recv(1024)
+        if data == ReceiveConnectionsConstants().TESTDATA:
+            client.send(b'success')
+        else:
+            pass
+        return data
+
+    def accept_connection(self, sock, sslstatus):
+        client, address = sock.accept()
+        if sslstatus == True:
+            client = SSLSocketController().wrap_client_socket(client)
+        return address, client
