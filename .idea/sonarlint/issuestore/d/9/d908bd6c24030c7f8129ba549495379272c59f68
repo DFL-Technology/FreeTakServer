@@ -1,0 +1,9 @@
+
+opython:S117"SRename this parameter "CoTPort" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+mpython:S117"QRename this parameter "Event" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+jpython:S117"NRename this parameter "IP" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+ƒpython:S117"gRename this parameter "ReceiveConnectionKillSwitch" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+spython:S117"WRename this parameter "RestAPIPipe" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+wpython:S117"[Rename this local variable "clientData" to match the regular expression ^[_a-z][a-z0-9_]*$.(€ž»áøÿÿÿÿ
+vpython:S117"ZRename this parameter "clientDataPipe" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸªÒ¬üÿÿÿÿ
+~python:S117"bRename this local variable "receiveConnection" to match the regular expression ^[_a-z][a-z0-9_]*$.(Õò¥Éýÿÿÿÿ

@@ -1,0 +1,34 @@
+
+npython:S116"YRename this field "SSLCoTServicePort" to match the regular expression ^[_a-z][_a-z0-9]*$.(¤ü„Ä
+wpython:S116"]Rename this field "federationKeyPassword" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ìê½ôüÿÿÿÿ
+dpython:S116"ORename this field "testPem" to match the regular expression ^[_a-z][_a-z0-9]*$.(Üû®°
+bpython:S116"NRename this field "p12Dir" to match the regular expression ^[_a-z][_a-z0-9]*$.(®Âüo
+bpython:S116"MRename this field "CAkey" to match the regular expression ^[_a-z][_a-z0-9]*$.(“‘¸ƒ
+opython:S116"URename this field "AllowedCLIIPs" to match the regular expression ^[_a-z][_a-z0-9]*$.(›úëùÿÿÿÿ
+opython:S116"URename this field "federationKey" to match the regular expression ^[_a-z][_a-z0-9]*$.(š½¹‘úÿÿÿÿ
+hpython:S116"SRename this field "SaveCoTToDB" to match the regular expression ^[_a-z][_a-z0-9]*$.(°Ì»
+lpython:S116"WRename this field "ExCheckFilePath" to match the regular expression ^[_a-z][_a-z0-9]*$.(Çÿ„…
+ipython:S116"ORename this field "CRLFile" to match the regular expression ^[_a-z][_a-z0-9]*$.(‰ÕÎúÿÿÿÿ
+kpython:S116"QRename this field "certsPath" to match the regular expression ^[_a-z][_a-z0-9]*$.(ò‚„Úüÿÿÿÿ
+ipython:S116"ORename this field "testKey" to match the regular expression ^[_a-z][_a-z0-9]*$.(ÌÇ‚Øùÿÿÿÿ
+lpython:S116"RRename this field "yamlConfig" to match the regular expression ^[_a-z][_a-z0-9]*$.(½û–•øÿÿÿÿ
+opython:S116"URename this field "MainLoopDelay" to match the regular expression ^[_a-z][_a-z0-9]*$.(µ€’‚ùÿÿÿÿ
+xpython:S116"cRename this field "DataPackageServiceDefaultIP" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ãó‚›
+ppython:S116"VRename this field "federationCert" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ç«…×ıÿÿÿÿ
+kpython:S116"VRename this field "CoTServicePort" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ì²ü»
+mpython:S116"SRename this field "LogFilePath" to match the regular expression ^[_a-z][_a-z0-9]*$.(Æ¤¨„şÿÿÿÿ
+jpython:S116"PRename this field "MainPath" to match the regular expression ^[_a-z][_a-z0-9]*$.(Éô£×üÿÿÿÿ
+hpython:S116"NRename this field "pemDir" to match the regular expression ^[_a-z][_a-z0-9]*$.(ãä÷üÿÿÿÿ
+ipython:S116"ORename this field "APIPort" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ú‚Á’üÿÿÿÿ
+ppython:S116"[Rename this field "DataPackageFilePath" to match the regular expression ^[_a-z][_a-z0-9]*$.(’¦ü´
+cpython:S116"NRename this field "keyDir" to match the regular expression ^[_a-z][_a-z0-9]*$.(¡ò©
+upython:S116"`Rename this field "ExCheckChecklistFilePath" to match the regular expression ^[_a-z][_a-z0-9]*$.(ü¶§‘
+ppython:S116"VRename this field "unencryptedKey" to match the regular expression ^[_a-z][_a-z0-9]*$.(£Éšùÿÿÿÿ
+qpython:S116"WRename this field "ExCheckMainPath" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ö÷üÖıÿÿÿÿ
+mpython:S116"XRename this field "UserConnectionIP" to match the regular expression ^[_a-z][_a-z0-9]*$.(õ·Éø
+gpython:S116"RRename this field "DBFilePath" to match the regular expression ^[_a-z][_a-z0-9]*$.(öô®˜
+ppython:S116"VRename this field "clientPackages" to match the regular expression ^[_a-z][_a-z0-9]*$.(àÃç”ûÿÿÿÿ
+cpython:S116"NRename this field "nodeID" to match the regular expression ^[_a-z][_a-z0-9]*$.(‰ÁÃ 
+spython:S116"YRename this field "ConnectionMessage" to match the regular expression ^[_a-z][_a-z0-9]*$.(©ãğ»üÿÿÿÿ
+kpython:S116"VRename this field "FederationPort" to match the regular expression ^[_a-z][_a-z0-9]*$.(Â…‘¯
+Rpython:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·

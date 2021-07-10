@@ -1,0 +1,102 @@
+
+tpython:S116"ZRename this field "RestAPICommandsFTS" to match the regular expression ^[_a-z][_a-z0-9]*$.(‘¿’‘ıÿÿÿÿ
+opython:S116"URename this field "CoTPoisonPill" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ôéä‰üÿÿÿÿ
+{python:S116"fRename this field "FederationClientServicePipeFTS" to match the regular expression ^[_a-z][_a-z0-9]*$.(¨øä
+opython:S116"URename this field "TCPCoTService" to match the regular expression ^[_a-z][_a-z0-9]*$.(“˜İ½ùÿÿÿÿ
+tpython:S116"_Rename this field "FederationServerService" to match the regular expression ^[_a-z][_a-z0-9]*$.(Š”Öä
+gpython:S116"RRename this field "CoTService" to match the regular expression ^[_a-z][_a-z0-9]*$.(£åË÷
+lpython:S116"XRename this field "SSLCoTPoisonPill" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ãß¬	
+wpython:S116"]Rename this field "SSLDataPackageService" to match the regular expression ^[_a-z][_a-z0-9]*$.(×¨Ìİÿÿÿÿÿ
+jpython:S116"PRename this field "pipeList" to match the regular expression ^[_a-z][_a-z0-9]*$.(ùª‰èÿÿÿÿÿ
+ypython:S116"_Rename this field "FederationClientService" to match the regular expression ^[_a-z][_a-z0-9]*$.(†¹ë¯øÿÿÿÿ
+qpython:S116"\Rename this field "receive_Rest_stopper" to match the regular expression ^[_a-z][_a-z0-9]*$.(¶ß•Ì
+npython:S116"TRename this field "receive_Rest" to match the regular expression ^[_a-z][_a-z0-9]*$.(ØñÖŠøÿÿÿÿ
+rpython:S116"]Rename this field "TCPDataPackageService" to match the regular expression ^[_a-z][_a-z0-9]*$.(„÷ºŒ
+gpython:S116"RRename this field "killSwitch" to match the regular expression ^[_a-z][_a-z0-9]*$.(ŞÚ‘ù
+npython:S116"YRename this field "SSLClientDataPipe" to match the regular expression ^[_a-z][_a-z0-9]*$.(ªÚ‡ğ
+kpython:S116"VRename this field "RestAPIProcess" to match the regular expression ^[_a-z][_a-z0-9]*$.(¸Ï¬«
+kpython:S116"VRename this field "ClientDataPipe" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ú™ûø
+gpython:S116"SRename this field "socketCount" to match the regular expression ^[_a-z][_a-z0-9]*$.(ßÇ\
+npython:S116"YRename this field "SSLCoTServicePipe" to match the regular expression ^[_a-z][_a-z0-9]*$.(æ“úå
+hpython:S116"SRename this field "StartupTime" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ï ô¼
+hpython:S116"SRename this field "RestAPIPipe" to match the regular expression ^[_a-z][_a-z0-9]*$.(äÔ¥ñ
+jpython:S116"URename this field "SSLCoTService" to match the regular expression ^[_a-z][_a-z0-9]*$.(¼ê‡¡
+ypython:S116"eRename this field "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][_a-z0-9]*$.(àß°8
+npython:S116"TRename this field "dbController" to match the regular expression ^[_a-z][_a-z0-9]*$.(ìÆÔäÿÿÿÿÿ
+mpython:S116"SRename this field "FilterGroup" to match the regular expression ^[_a-z][_a-z0-9]*$.(œœŒ¡úÿÿÿÿ
+mpython:S116"SRename this field "clientArray" to match the regular expression ^[_a-z][_a-z0-9]*$.(çã·³şÿÿÿÿ
+gpython:S116"SRename this field "UserCommand" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ãùïu
+tpython:S116"_Rename this field "ReceiveConnectionsReset" to match the regular expression ^[_a-z][_a-z0-9]*$.(ª‘‘á
+{python:S116"fRename this field "FederationServerServicePipeFTS" to match the regular expression ^[_a-z][_a-z0-9]*$.(ì¾ÃÈ
+}python:S117"cRename this local variable "RestAPICommandsFTS" to match the regular expression ^[_a-z][a-z0-9_]*$.(ëîÙ…şÿÿÿÿ
+mpython:S117"ZRename this parameter "StartupObjects" to match the regular expression ^[_a-z][a-z0-9_]*$.(·ĞX
+lpython:S100"YRename method "start_restAPI_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(·ĞX
+rpython:S100"XRename method "stop_RestAPI_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(êùÖéıÿÿÿÿ
+~python:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(¦ãÆ
+spython:S117"^Rename this local variable "TCPCoTService" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ïô½¯
+{python:S117"aRename this local variable "TCPCoTServiceFTS" to match the regular expression ^[_a-z][a-z0-9_]*$.(™ğşÏúÿÿÿÿ
+~python:S117"dRename this local variable "TCPCoTServiceThread" to match the regular expression ^[_a-z][a-z0-9_]*$.(èÿªúÿÿÿÿ
+jpython:S100"URename method "start_CoT_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(¦ãÆ
+ipython:S100"TRename method "stop_CoT_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(€‡†„
+~python:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(à›ãô
+ƒpython:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(ä¾§¼şÿÿÿÿ
+ƒpython:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(€»ñŞùÿÿÿÿ
+wpython:S117"bRename this local variable "SSLCoTServicePipe" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆÚ»“
+python:S117"lRename this local variable "SSLCoTServicePipeController" to match the regular expression ^[_a-z][a-z0-9_]*$.(ï«†
+python:S117"eRename this local variable "SSLCoTServicePipeFTS" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÆÃ¯€øÿÿÿÿ
+spython:S100"YRename method "start_SSL_CoT_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(€»ñŞùÿÿÿÿ
+rpython:S100"XRename method "stop_SSL_CoT_service" to match the regular expression ^[a-z_][a-z0-9_]*$.(Å™éùüÿÿÿÿ
+ƒpython:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(À´•Ûûÿÿÿÿ
+†python:S117"lRename this local variable "FederationClientServicePipe" to match the regular expression ^[_a-z][a-z0-9_]*$.(ĞÅîÓùÿÿÿÿ
+‰python:S117"oRename this local variable "FederationClientServicePipeFTS" to match the regular expression ^[_a-z][a-z0-9_]*$.(ğ„ö¯ÿÿÿÿÿ
+Rpython:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+ƒpython:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(­»¾Üûÿÿÿÿ
+†python:S117"rRename this local variable "FederationServerServiceController" to match the regular expression ^[_a-z][a-z0-9_]*$.(¢±Ã5
+€python:S117"kRename this local variable "FederationServerServiceFTS" to match the regular expression ^[_a-z][a-z0-9_]*$.(¢ÚÈ×
+python:S117"lRename this local variable "FederationServerServicePipe" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸëŠˆ
+Rpython:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Rpython:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+}python:S117"iRename this parameter "FTSServiceStartupConfigObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(ª½ìs
+ipython:S3776"TRefactor this function to reduce its Cognitive Complexity from 61 to the 15 allowed.(ª½ìs
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+qpython:S117"WRename this parameter "clientArray" to match the regular expression ^[_a-z][a-z0-9_]*$.(à«Èøÿÿÿÿ
+€python:S100"fRename method "receive_data_froCoT_service_thread" to match the regular expression ^[a-z_][a-z0-9_]*$.(à«Èøÿÿÿÿ
+@python:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+opython:S3776"TRefactor this function to reduce its Cognitive Complexity from 29 to the 15 allowed.(à«Èøÿÿÿÿ
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+spython:S100"YRename method "receive_Rest_commands" to match the regular expression ^[a-z_][a-z0-9_]*$.(ï‚‹Ùÿÿÿÿÿ
+wpython:S117"]Rename this local variable "simpleClient" to match the regular expression ^[_a-z][a-z0-9_]*$.(Óé˜øÿÿÿÿ
+{python:S117"aRename this local variable "CoTServiceOutput" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÂÑÄéşÿÿÿÿ
+~python:S117"iRename this local variable "DataPackageServiceOutput" to match the regular expression ^[_a-z][a-z0-9_]*$.(Àœ×—
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+Spython:S112">Replace this generic exception class with a more specific one.(•«ãÇ
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+Spython:S112">Replace this generic exception class with a more specific one.(şÙ‰
+cpython:S100"NRename method "checkPipes" to match the regular expression ^[a-z_][a-z0-9_]*$.(šÕÉ˜
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+opython:S117"URename this parameter "AutoStart" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+kpython:S117"QRename this parameter "CoTIP" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+mpython:S117"SRename this parameter "CoTPort" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+spython:S117"YRename this parameter "DataPackageIP" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+upython:S117"[Rename this parameter "DataPackagePort" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+opython:S117"URename this parameter "RestAPIIP" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+qpython:S117"WRename this parameter "RestAPIPort" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+npython:S117"TRename this parameter "SSLCoTIP" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+ppython:S117"VRename this parameter "SSLCoTPort" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+vpython:S117"\Rename this parameter "SSLDataPackageIP" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+xpython:S117"^Rename this parameter "SSLDataPackagePort" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+xpython:S117"^Rename this local variable "StartupObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(şú´¯øÿÿÿÿ
+hpython:S117"NRename this parameter "UI" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+ppython:S117"VRename this parameter "firstStart" to match the regular expression ^[_a-z][a-z0-9_]*$.(÷ÑÁúÿÿÿÿ
+>python:S108")Either remove or fill this block of code.(ã‘Û¾
+9python:S125"Remove this commented out code.(°Ş¸Ğşÿÿÿÿ
+@python:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+@python:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+@python:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+@python:S1481"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+>python:S108")Either remove or fill this block of code.(ã‘Û¾

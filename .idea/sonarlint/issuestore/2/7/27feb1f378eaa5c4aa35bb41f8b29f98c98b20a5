@@ -1,0 +1,11 @@
+
+lpython:S3776U"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(ºØ¹Û
+@python:S108a")Either remove or fill this block of code.(ã‘Û¾
+;python:S125q"Remove this commented out code.( £Àùÿÿÿÿ
+Apython:S108‚")Either remove or fill this block of code.(ã‘Û¾
+Cpython:S1481Ã"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+Cpython:S1481Í"%Remove the unused local variable "e".(¼–¯¸ÿÿÿÿÿ
+Gpython:S1481õ")Remove the unused local variable "trace".(˜ûü·şÿÿÿÿ
+lpython:S117ø"ORename this parameter "CoT" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÛÀûÿÿÿÿ
+gpython:S117"ORename this parameter "CoT" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŒÙä 
+wpython:S1186¡"YAdd a nested comment explaining why this method is empty, or complete the implementation.(±Ò³üÿÿÿÿ

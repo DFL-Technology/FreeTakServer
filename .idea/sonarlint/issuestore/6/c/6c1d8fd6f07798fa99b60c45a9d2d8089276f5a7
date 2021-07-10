@@ -1,0 +1,8 @@
+
+mpython:S116"QRename this field "CoTObject" to match the regular expression ^[_a-z][_a-z0-9]*$.(ú¹§ùÿÿÿÿ
+wpython:S117"[Rename this local variable "tempObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(Óã–èøÿÿÿÿ
+Cpython:S5806"+Rename this variable; it shadows a builtin.(«´’
+opython:S100"YRename method "_serializeJsonToModel" to match the regular expression ^[a-z_][a-z0-9_]*$.(êÛ“[
+lpython:S117"URename this parameter "CoTObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(ıà¹ö
+gpython:S100"PRename method "setCoTObject" to match the regular expression ^[a-z_][a-z0-9_]*$.(ıà¹ö
+lpython:S100"PRename method "getCoTObject" to match the regular expression ^[a-z_][a-z0-9_]*$.(ÏöîÆøÿÿÿÿ

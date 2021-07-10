@@ -1,0 +1,5 @@
+
+vpython:S1186"YAdd a nested comment explaining why this method is empty, or complete the implementation.(Áû¹Çûÿÿÿÿ
+wpython:S117"`Rename this parameter "rawClientInformation" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÂÆï±
+qpython:S117"[Rename this local variable "tempObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸþŸ^
+Ipython:S1481 ",Remove the unused local variable "argument".(ó¼Œùÿÿÿÿÿ

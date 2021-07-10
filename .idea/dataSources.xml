@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="FTSDataBase.db" uuid="de2e454a-0cc6-4136-8573-2edd1693c66a">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\natha\PycharmProjects\FreeTakServer\FreeTAKServer\controllers\configuration\FTSDataBase.db</jdbc-url>
+    </data-source>
+  </component>
+</project>

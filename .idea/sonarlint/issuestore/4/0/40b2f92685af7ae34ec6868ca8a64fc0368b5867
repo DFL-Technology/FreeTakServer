@@ -1,0 +1,7 @@
+
+npython:S117
+"RRename this parameter "RawCoT" to match the regular expression ^[_a-z][a-z0-9_]*$.(µŒßüÿÿÿÿ
+wpython:S117"[Rename this local variable "tempObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ùòóıùÿÿÿÿ
+6python:S2734"Remove this return value.(šó¸Ôüÿÿÿÿ
+Hpython:S5806"+Rename this variable; it shadows a builtin.(ó×³„úÿÿÿÿ
+@python:S108")Either remove or fill this block of code.(ã‘Û¾

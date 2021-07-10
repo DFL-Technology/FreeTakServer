@@ -1,0 +1,25 @@
+
+opython:S116"SRename this field "modelObject" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ó«¢ÿÿÿÿÿ
+npython:S117"WRename this parameter "modelObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(Áúâ‘
+lpython:S100"VRename method "establishVariables" to match the regular expression ^[a-z_][a-z0-9_]*$.(¤ãà
+epython:S100$"NRename method "eventAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(Æ…ØÒ
+jpython:S100)"NRename method "pointAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(ğ˜¶ûÿÿÿÿ
+ipython:S1000"MRename method "takvAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(ŠÇ¨Æÿÿÿÿÿ
+lpython:S1006"PRename method "contactAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(Ë°¹šøÿÿÿÿ
+Tpython:S57549"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S5754="<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+cpython:S100?"LRename method "uidAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(…Ùˆ‹
+vpython:S100B"ZRename method "precisionlocationAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(Å«í±ÿÿÿÿÿ
+Tpython:S5754E"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S5754I"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+epython:S100K"NRename method "groupAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(¾å°×
+fpython:S100O"ORename method "statusAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(²Ğ‹ö
+epython:S100R"NRename method "trackAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(ø¾åù
+ipython:S100V"MRename method "linkAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(åŞ¶ ÿÿÿÿÿ
+Tpython:S5754Y"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S5754]"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S5754a"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+ipython:S100c"RRename method "emergencyAtrib" to match the regular expression ^[a-z_][a-z0-9_]*$.(ßà­£
+Tpython:S5754f"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S5754k"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+qpython:S100n"URename method "returnModelObject" to match the regular expression ^[a-z_][a-z0-9_]*$.(Î–Á úÿÿÿÿ

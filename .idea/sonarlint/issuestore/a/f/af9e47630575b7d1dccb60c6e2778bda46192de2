@@ -1,0 +1,19 @@
+
+lpython:S116"PRename this field "typeDict" to match the regular expression ^[_a-z][_a-z0-9]*$.(ËØ¥»ıÿÿÿÿ
+;python:S125"Remove this commented out code.(‹ò¯·øÿÿÿÿ
+lpython:S117"PRename this parameter "Json" to match the regular expression ^[_a-z][a-z0-9_]*$.(°œç¦ıÿÿÿÿ
+ppython:S117"YRename this local variable "JsonFull" to match the regular expression ^[_a-z][a-z0-9_]*$.(êó”ğ
+zpython:S117"^Rename this local variable "JsonProcessed" to match the regular expression ^[_a-z][a-z0-9_]*$.(—›Óşÿÿÿÿ
+python:S117"eRename this local variable "processedModelObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(øş™Îûÿÿÿÿ
+ypython:S117"bRename this local variable "simpleModelObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(¹ÆÆî
+lpython:S117"PRename this parameter "Json" to match the regular expression ^[_a-z][a-z0-9_]*$.(‡µïüÿÿÿÿ
+ppython:S117"TRename this parameter "JsonFull" to match the regular expression ^[_a-z][a-z0-9_]*$.(‡µïüÿÿÿÿ
+spython:S117"\Rename this local variable "subJsonFull" to match the regular expression ^[_a-z][a-z0-9_]*$.(¥ğä¾
+gpython:S117""PRename this parameter "Json" to match the regular expression ^[_a-z][a-z0-9_]*$.(¸ÿÉ”
+opython:S100""XRename method "serializeJsonToModel" to match the regular expression ^[a-z_][a-z0-9_]*$.(¸ÿÉ”
+wpython:S1171"[Rename this local variable "attribName" to match the regular expression ^[_a-z][a-z0-9_]*$.(¤œ øÿÿÿÿ
+npython:S117/"WRename this parameter "modelObject" to match the regular expression ^[_a-z][a-z0-9_]*$.(®ûÙ²
+rpython:S1173"[Rename this local variable "tagElement" to match the regular expression ^[_a-z][a-z0-9_]*$.(ß‚
+lpython:S3776/"TRefactor this function to reduce its Cognitive Complexity from 25 to the 15 allowed.(®ûÙ²
+mpython:S5549@"PRemove duplicate values for parameter "level" in "serialize_model_to_json" call.(Ãı™üÿÿÿÿ
+opython:S3923S"RRemove this if statement or edit its code blocks so that they're not all the same.(òó²èûÿÿÿÿ
